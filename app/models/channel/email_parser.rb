@@ -2,6 +2,8 @@
 
 # encoding: utf-8
 
+require 'kconv'
+
 class Channel::EmailParser
   EMAIL_REGEX = /.+@.+/
   RECIPIENT_FIELDS = %w[to cc delivered-to x-original-to envelope-to].freeze
@@ -533,7 +535,11 @@ process unprocessable_mails (tmp/unprocessable_mail/*.eml) again
                   message.body.raw_source
                 end
 
-    body_text = body_text.utf8_encode(from: message.charset, fallback: :read_as_sanitized_binary)
+    if body_text.isjis
+      body_text = body_text.kconv(Kconv::UTF8, Kconv::JIS)
+    else
+      body_text = body_text.utf8_encode(from: message.charset, fallback: :read_as_sanitized_binary)
+    end
     body_text = Mail::Utilities.to_lf(body_text)
 
     return body_text.html2html_strict if options[:strict_html]
