@@ -997,7 +997,12 @@ class Table extends App.Controller
     # get ticket list
     ticketListShow = []
     for ticket in tickets
-      ticketListShow.push App.Ticket.find(ticket.id)
+      ticketModel = App.Ticket.find(ticket.id)
+      # アシアルによる改修・ホバー時にbody要素を表示するための実装
+      if ticketModel.article_ids.length > 0
+        article = App.TicketArticle.find(ticketModel.article_ids[0])
+        ticketModel.article = article
+      ticketListShow.push ticketModel
 
     # if customer and no ticket exists, show the following message only
     if !ticketListShow[0] && @permissionCheck('ticket.customer')

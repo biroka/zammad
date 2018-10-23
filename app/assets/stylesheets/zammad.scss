@@ -9630,3 +9630,32 @@ span.is-disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
+
+.fukidashi {
+  display: none; 
+  position: absolute;
+  color: #fff;
+  width: 50%;
+  background: #33cc99;
+  margin-top: 10px;
+  padding: 16px;
+  white-space: pre-wrap;
+  border-radius: 10px;
+  max-height: 100px;
+}
+
+.fukidashi:after {
+  position: absolute;
+  left: 20px;
+  top: -20px;
+  width: 0px;
+  height: 0px;
+  border: solid #00000000;
+  border-bottom-color: #00cc99;
+  border-width: 10px;
+  content: "";
+}
+
+.hover-fukidashi:hover + .fukidashi {
+  display: block;
+}

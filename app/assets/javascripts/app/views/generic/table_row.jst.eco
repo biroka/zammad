@@ -60,19 +60,38 @@
         </div>
       <% end %>
     <% else: %>
-      <% if header.link: %>
-        <a href="<%- header.link %>" <% if header.target: %>target="<%= header.target %>"<% end %>>
-      <% end %>
-      <% if header.raw: %>
-        <%- header.raw %>
-      <% else: %>
-        <% if header.class || header.data: %>
-        <span <% if header.class: %>class="<%= header.class %>"<% end %> <% if header.data: %><% for data_key, data_header of header.data: %>data-<%- data_key %>="<%= data_header %>" <% end %><% end %>>
+      <% if header.name == 'title': %>
+        <% if @object.article: %>
+          <% if header.link: %>
+            <a href="<%- header.link %>" <% if header.target: %>target="<%= header.target %>"<% end %> class="hover-fukidashi">
+          <% end %>
+          <% if header.raw: %>
+            <%- header.raw %>
+          <% else: %>
+            <% if header.class || header.data: %>
+            <span <% if header.class: %>class="<%= header.class %>"<% end %> <% if header.data: %><% for data_key, data_header of header.data: %>data-<%- data_key %>="<%= data_header %>" <% end %><% end %>>
+            <% end %>
+            <%- value %>
+            <% if header.class || header.data: %></span><% end %>
+          <% end %>
+          <% if header.link: %></a><% end %>
+          <div class="fukidashi"><%= @object.article.body %></div>
         <% end %>
-        <%- value %>
-        <% if header.class || header.data: %></span><% end %>
+      <% else: %>
+        <% if header.link: %>
+          <a href="<%- header.link %>" <% if header.target: %>target="<%= header.target %>"<% end %>>
+        <% end %>
+        <% if header.raw: %>
+          <%- header.raw %>
+        <% else: %>
+          <% if header.class || header.data: %>
+          <span <% if header.class: %>class="<%= header.class %>"<% end %> <% if header.data: %><% for data_key, data_header of header.data: %>data-<%- data_key %>="<%= data_header %>" <% end %><% end %>>
+          <% end %>
+          <%- value %>
+          <% if header.class || header.data: %></span><% end %>
+        <% end %>
+        <% if header.link: %></a><% end %>
       <% end %>
-      <% if header.link: %></a><% end %>
     <% end %>
   </td>
 <% end %>

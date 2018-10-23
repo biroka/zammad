@@ -58,6 +58,7 @@ class App.TicketList extends App.Controller
     for ticket_id in @ticket_ids
       ticketItem = App.Ticket.fullLocal(ticket_id)
       list.push ticketItem
+
     @el.html('')
     new App.ControllerTable(
       tableId:  @tableId
