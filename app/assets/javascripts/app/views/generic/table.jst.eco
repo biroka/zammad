@@ -34,3 +34,4 @@
   <tbody class="js-tableBody"><%- @tableBody %></tbody>
 </table>
 <div class="js-pager"></div>
+<div style="height: 120px;"></div>

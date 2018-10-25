@@ -9637,11 +9637,11 @@ span.is-disabled {
   color: #fff;
   width: 50%;
   background: #33cc99;
-  margin-top: 10px;
+  margin-top: 14px;
   padding: 16px;
   white-space: pre-wrap;
   border-radius: 10px;
-  max-height: 100px;
+  box-shadow: 10px 10px 20px gray;
 }
 
 .fukidashi:after {
@@ -9654,6 +9654,12 @@ span.is-disabled {
   border-bottom-color: #00cc99;
   border-width: 10px;
   content: "";
+}
+
+.fukidashi-in {
+  width: 100%;
+  max-height: 100px;
+  overflow: hidden;
 }
 
 .hover-fukidashi:hover + .fukidashi {

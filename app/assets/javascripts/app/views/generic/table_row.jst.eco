@@ -74,7 +74,7 @@
           <% if header.class || header.data: %></span><% end %>
         <% end %>
         <% if header.link: %></a><% end %>
-        <div class="fukidashi"><%= @object.article.body %></div>
+        <div class="fukidashi"><div class="fukidashi-in"><%= @object.article.body %></div></div>
       <% else: %>
         <% if header.link: %>
           <a href="<%- header.link %>" <% if header.target: %>target="<%= header.target %>"<% end %>>
