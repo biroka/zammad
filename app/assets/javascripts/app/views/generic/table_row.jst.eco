@@ -74,7 +74,7 @@
           <% if header.class || header.data: %></span><% end %>
         <% end %>
         <% if header.link: %></a><% end %>
-        <div class="fukidashi"><div class="fukidashi-in fukidashi-in-<%= @object.attached.id %>"><%= if @object.attached.body? then @object.attached.body else '... loading' %></div></div>
+        <div class="fukidashi"><div class="fukidashi-in fukidashi-in-<%= @object.attached.id %>"><% if @object.attached.body?:%><%= @object.attached.body %><% else: %><div class="fukidashi-loading">Loading...</div><% end %></div></div>
       <% else: %>
         <% if header.link: %>
           <a href="<%- header.link %>" <% if header.target: %>target="<%= header.target %>"<% end %>>

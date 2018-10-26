@@ -9637,7 +9637,7 @@ span.is-disabled {
   color: #fff;
   width: 50%;
   background: #33cc99;
-  margin-top: 14px;
+  margin-top: 18px;
   padding: 16px;
   white-space: pre-wrap;
   border-radius: 10px;
@@ -9662,6 +9662,18 @@ span.is-disabled {
   overflow: hidden;
 }
 
+.fukidashi-loading {
+  animation: Flash1 0.5s infinite;
+}
+
+/* アニメーション */
+@keyframes Flash1{
+  50%{
+    opacity: 0;
+  }
+}
+
 .hover-fukidashi:hover + .fukidashi {
   display: block;
 }
+
