@@ -940,6 +940,7 @@ class Table extends App.Controller
     @bind 'ui:rerender', =>
       return if !@authenticateCheck()
       return if !@view
+      data = App.OverviewListCollection.get(@view)
       @render(App.OverviewListCollection.get(@view))
 
   release: =>
@@ -999,10 +1000,16 @@ class Table extends App.Controller
     for ticket in tickets
       ticketModel = App.Ticket.find(ticket.id)
       # アシアルによる改修・ホバー時にbody要素を表示するための実装
-      if ticketModel.article_ids.length > 0
-        article = App.TicketArticle.find(ticketModel.article_ids[0])
-        ticketModel.article = article
-      ticketListShow.push ticketModel
+      if ticketModel?
+        if ticketModel.article_ids.length > 0
+          ticket_article_id = ticketModel.article_ids[0]
+          article = App.TicketArticle.find(ticket_article_id)
+          ticketModel.attached = { 
+            id: ticket_article_id
+            body: if article? then article.body else undefined
+            loaded: article? 
+          }
+        ticketListShow.push ticketModel
 
     # if customer and no ticket exists, show the following message only
     if !ticketListShow[0] && @permissionCheck('ticket.customer')
@@ -1220,6 +1227,34 @@ class Table extends App.Controller
           bulkAll.prop('checked', false)
           bulkAll.prop('indeterminate', true)
     )
+
+    for ticketModel in ticketListShow
+      if ticketModel.attached && ! ticketModel.attached.loaded
+        apiPath = @apiPath
+        do =>
+          _ticket = ticketModel
+          _article_id = ticketModel.attached.id
+          App.Ajax.request({
+            id:    "ticket_article_#{_article_id}"
+            type:  'GET'
+            url:   "#{apiPath}/ticket_articles/#{_article_id}"
+            processData: true
+            queue: false
+            success: (data, status, xhr) =>
+              _ticket.attached.loaded = true
+              App.TicketArticle.refresh(data)
+              _article = App.TicketArticle.find(_article_id)
+              if _article?
+                @$('.fukidashi-in-' + _article_id).html(_article.body)
+              else
+                @$('.fukidashi-in-' + _article_id).html('load failed')
+            error: (xhr) =>
+              _ticket.attached.loaded = true
+              @$('.fukidashi-in-' + _article_id).html('load failed')
+              # statusText = xhr.statusText
+              # status     = xhr.status
+              # detail     = xhr.responseText
+          })
 
   shouldShowBulkForm: =>
     items = @$('table').find('input[name="bulk"]:checked')

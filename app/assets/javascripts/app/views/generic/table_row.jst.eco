@@ -60,7 +60,7 @@
         </div>
       <% end %>
     <% else: %>
-      <% if header.name == 'title' && @object.article != null: %>
+      <% if header.name == 'title' && @object.attached != null: %>
         <% if header.link: %>
           <a href="<%- header.link %>" <% if header.target: %>target="<%= header.target %>"<% end %> class="hover-fukidashi">
         <% end %>
@@ -74,7 +74,7 @@
           <% if header.class || header.data: %></span><% end %>
         <% end %>
         <% if header.link: %></a><% end %>
-        <div class="fukidashi"><div class="fukidashi-in"><%= @object.article.body %></div></div>
+        <div class="fukidashi"><div class="fukidashi-in fukidashi-in-<%= @object.attached.id %>"><%= if @object.attached.body? then @object.attached.body else '... loading' %></div></div>
       <% else: %>
         <% if header.link: %>
           <a href="<%- header.link %>" <% if header.target: %>target="<%= header.target %>"<% end %>>
