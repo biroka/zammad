@@ -805,6 +805,10 @@ module Mail
           )/xmi).map do |matches|
             string, method = *matches
             if    method == 'b' || method == 'B' # rubocop:disable Style/MultipleComparison
+              match = string.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/)
+              if match && match[1] == 'ISO-2022-JP'
+                string.sub!('ISO-2022-JP','CP50220')
+              end
               b_value_decode(string)
             elsif method == 'q' || method == 'Q' # rubocop:disable Style/MultipleComparison
               q_value_decode(string)
