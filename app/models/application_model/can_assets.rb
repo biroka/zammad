@@ -137,8 +137,11 @@ get assets of object list
     def assets_of_object_list(list, assets = {})
       list.each do |item|
         require item['object'].to_filename
-        record = Kernel.const_get(item['object']).find(item['o_id'])
-        assets = record.assets(assets)
+        begin
+          record = Kernel.const_get(item['object']).find(item['o_id'])
+          assets = record.assets(assets)
+        rescue => e
+        end
         if item['created_by_id'].present?
           user = User.find(item['created_by_id'])
           assets = user.assets(assets)
