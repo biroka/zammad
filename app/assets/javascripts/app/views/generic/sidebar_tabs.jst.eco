@@ -1,5 +1,5 @@
 <% for item in @items: %>
-<div class="sidebar bottom-form-shadow flex hide" data-tab="<%= item.name %>">
+<div class="sidebar bottom-form-shadow flex hide" data-tab="<%= item.name %>" style="display:flex; flex-direction: column">
   <div class="sidebar-header">
     <h2 class="sidebar-header-headline js-headline"><%- @T(item.sidebarHead) %></h2>
     <div class="sidebar-header-actions js-actions"></div>
@@ -8,7 +8,7 @@
     </div>
   </div>
   <hr>
-  <div class="sidebar-content"></div>
+  <div class="sidebar-content" style="display:flex; flex-direction: column; height:100%; align-self: stretch"></div>
 </div>
 <% end %>
 <div class="tabsSidebar-tabs" style="<%- if @dir is 'rtl' then 'margin-right' else 'margin-left' %>: -<%- @scrollbarWidth %>px">

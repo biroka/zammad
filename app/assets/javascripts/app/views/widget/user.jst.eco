@@ -46,8 +46,8 @@
   <% end %>
 <% end %>
 <% if @user['uid']: %>
-  <div class="sidebar-block">
+  <div class="sidebar-block" style="height: 100%">
     This is a user's info
-    <iframe src="https://admin.monaca.mobi/zendesk?id=<%= @user['uid'] %>&project_id=undefined&secret_cordova_5963"></iframe>
+    <iframe style="width: 100%; height: 100%;" src="https://admin.monaca.mobi/zendesk?id=<%= @user['uid'] %>&project_id=undefined&secret_cordova_5963"></iframe>
   </div>
 <% end %>
